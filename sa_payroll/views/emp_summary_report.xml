@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_emp_summary">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center container">
+                            <h6> EMPLOYEE SUMMARY REPORT </h6>
+                        </div>
+                        <div style="border-bottom: 1px solid black;"/>
+                        <br/>
+                        <table  class="table table-sm">
+                            <tr>
+                                <td width="30%">Company Name:</td>
+                                <td width="70%"><t t-esc="data['company_name']"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Period for payment:</td>
+                                <td width="70%"><t t-esc="data['date_to'].strftime('%Y%m')"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">PAYE reference number:</td>
+                                <td width="70%"><t t-esc="data['paye_ref_number']"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">SDL reference number:</td>
+                                <td width="70%"><t t-esc="data['sdl_ref_number']"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">UIF reference number:</td>
+                                <td width="70%"><t t-esc="data['uif_ref_number']"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Amount Payable PAYE:</td>
+                                <td width="70%"><t t-esc="data['paye_amt']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Amount Payable SDL:</td>
+                                <td width="70%"><t t-esc="data['sdl_amt_rsn']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Amount Payable UIF:</td>
+                                <td width="70%"><t t-esc="data['uif_amt_rsn']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Total payroll liability:</td>
+                                <td width="70%"><t t-esc="data['total_payroll_liability']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Amount Payable ETI:</td>
+                                <td width="70%"><t t-esc="data['eti_amt_total']" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Total Incentive Value:</td>
+                                <td width="70%"><t t-esc="data['total_intensive']" t-options='{"widget": "float", "precision": 2}'/></td>
+                            </tr>
+                            <tr>
+                                <td width="30%">Number of Employees with ETI:</td>
+                                <td width="70%"><t t-esc="data['number_eti_employee']"/></td>
+                            </tr>
+                        </table>
+                        <p>Please Note: ETI for New and Terminated Employees is determinded by the number of Days they are employed this month, as entered on the ETI Screen.</p>
+                        <br/><br/>
+                        <table>
+                            <tr>
+                                <td width="30%">
+                                    SDL Exclusion Reasons:
+                                </td>
+                                <td width="70%">
+                                    L = Learner/Excluded, I = Independent Contractor, i = Labour Broker with IRP30
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%">
+                                    UIF Exclusion Reasons:
+                                </td>
+                                <td width="70%">
+                                    T = Temporary, F = Excenpt Foreign Inc, G = Government, C = Commission Only, R = RSA UIF, D = Independent Contractor, E = Legal Entities, I = No Income, O = Pension Only
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+    </template>
+
+    <record id="action_report_summary_emp" model="ir.actions.report">
+        <field name="name">EMP Summary</field>
+        <field name="model">sa.emp.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sa_payroll.report_emp_summary</field>
+        <field name="report_file">sa_payroll.report_emp_summary</field>
+        <field name="print_report_name">'EMP - %s' % (object.employee_id.name)</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

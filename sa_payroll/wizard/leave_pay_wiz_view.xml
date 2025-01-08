@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_leave_pay_wizard_form" model="ir.ui.view">
+        <field name="name">leave.pay.wiz</field>
+        <field name="model">leave.pay.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Leave Pay">
+                <group>
+                    <field name="payslip_id" readonly='1'/>
+                    <field name="employee_id" widget="many2one_avatar_employee" readonly='1'/>
+                    <field name='no_of_weeks'/>
+                    <field name="rules_to_exclude_ids" widget='many2many_tags'/>
+
+                    <label for='leave_ids' string='Leaves Taken'/>
+                    <div>
+                        <field name='leave_ids' readonly='1' force_save='1'>
+                            <tree>
+                                <field name='employee_id'/>
+                                <field name='holiday_status_id'/>
+                                <field name='date_from'/>
+                                <field name='date_to'/>
+                                <field name='state'/>
+                            </tree>
+                        </field>
+                    </div>
+                </group>
+                <footer>
+                    <button name="apply_leave_pay" type="object" string="Apply Leave Pay" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_highlight" special="cancel"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_leave_pay_wizard" model="ir.actions.act_window">
+        <field name="name">Leave Pay</field>
+        <field name="res_model">leave.pay.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_leave_pay_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

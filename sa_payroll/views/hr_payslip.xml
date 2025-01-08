@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payroll_tree_view_inherit_wage" model="ir.ui.view">
+        <field name="name">hr.payslip.tree.inherit</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='net_wage']" position="after">
+                <field name="previous_net_wage"/>
+                <field name="variance"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_view_form_button_add" model="ir.ui.view">
+        <field name="name">hr.payslip.form</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='has_refund_slip']" position="after">
+                <field name="previous_net_wage"/>
+                <field name="variance"/>
+            </xpath>
+        	<xpath expr="//button[@name='action_print_payslip']" position="after">
+                <field name='is_leave_pay' invisible='1'/>
+                <field name='allow_leave_pay' invisible='1'/>
+        		<button name='update_contract' type='object' string='Update Contract'/>
+                <button name='activate_leave_pay_advance' type='object' string='Activate Leave Pay' invisible="state != 'verify' or is_leave_pay == True or allow_leave_pay == False"/>
+        	</xpath>
+
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <widget name="web_ribbon" title="Leave Pay" invisible="is_leave_pay == False"/>
+            </xpath>
+            <!-- <xpath expr='//field[@name="contract_id"]' position='after'>
+                <field name="currency_id" invisible="1"/>
+                <field name="employee_commission_amount"/>
+            </xpath> -->
+
+            <xpath expr="//page[@name='account_info']" position='after'>
+                <field name='is_leave_pay' invisible='1'/>
+                <page string='Reports'>
+                    <group>
+                        <group>
+                            <field name='eti' readonly='1'/>
+                            <field name='sdl' readonly='1'/>
+                            <field name='early_late_pay'/>
+                        </group>
+                        <group string="Severance pay">
+                            <field name='is_severance_pay' invisible="state not in ['draft','verify']"/>
+                            <button name="calculate_week_pay" string="Calculate Severance" type="object" invisible="is_severance_pay == False" class="oe_highlight"/>
+                            <field name='total_years_worked' invisible="is_severance_pay == False" readonly="state not in ['draft','verify']"/>
+                            <field name='week_pay' invisible="is_severance_pay == False" readonly="state not in ['draft','verify']"/>
+                        </group>
+                    </group>
+                </page>
+                <page string='Leave Pay' invisible="state != 'verify' or is_leave_pay == False">
+                    <group>
+                        <group>
+                            <span class='text-muted'>You need other input types with code 'LEAVEPAY'.</span>
+                            <field name='is_leave_pay' readonly='1'/>
+                            <!-- <field name='leave_pay_for_weeks' readonly='1'/>
+                            <field name='leave_pay_calculated_till' readonly='1'/> -->
+                            <button name="add_into_payslip" string="Calculate and add" type="object"/>
+                        </group>
+                    </group>
+
+                    <div>
+                        <field name='leave_pay_type_ids' readonly="state != 'verify'">
+                            <tree editable='bottom'>
+                                <field name='leave_type_id'/>
+                                <field name='remaining_days'/>
+                                <field name='factor'/>
+                            </tree>
+                        </field>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_salary_rule_view_form_eti_sdl" model="ir.ui.view">
+        <field name="name">hr.salary.rule.form</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <field name='appears_on_payslip' position='after'>
+                <field name='consider_for_eti_sdl'/>
+                <field name='exclude_for_leave_pay'/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_payroll_structure_inherit_sa" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+        <field name="arch" type="xml">
+            <field name='country_id' position='after'>
+                <field name='can_leave_pay_apply'/>
+            </field>
+        </field>
+    </record>
+</odoo>
+
+
+    

@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_emp_tax_structure,access_emp_tax_structure,model_emp_tax_structure,base.group_user,1,1,1,1
+access_emp_tax_structure_lines,access_emp_tax_structure_lines,model_emp_tax_structure_lines,base.group_user,1,1,1,1
+access_month_by_month,access_month_by_month,model_month_by_month,base.group_user,1,1,1,1
+access_medical_tax_structure,access_medical_tax_structure,model_medical_tax_structure,base.group_user,1,1,1,1
+access_medical_tax_structure_line,access_medical_tax_structure_line,model_medical_tax_structure_line,base.group_user,1,1,1,1
+access_easyfile_report,access_easyfile_report,model_easyfile_report,base.group_user,1,1,1,1
+access_leave_pay_wiz,access_leave_pay_wiz,model_leave_pay_wiz,base.group_user,1,1,1,1
+access_payslip_leave_pay,access_payslip_leave_pay,model_payslip_leave_pay,base.group_user,1,1,1,1
+access_emp_salary_increase,access_emp_salary_increase,model_emp_salary_increase,base.group_user,1,1,1,1
+payslip_report_extended.access_id_indicator,access_id_indicator,sa_payroll.model_id_indicator,base.group_user,1,1,1,1
+access_hr_contract_advantage_hr_user,sa_payroll.hr.contract.advantage,model_hr_contract_advantage,hr.group_hr_user,1,0,0,0
+access_hr_contract_advantage_payroll_user,sa_payroll.hr.contract.advantage,model_hr_contract_advantage,,1,1,1,1
+access_sa_emp_wizard,access_sa_emp_wizard,model_sa_emp_wizard,base.group_user,1,1,1,1
+access_emp_201_report,access_emp_201_report,model_emp_201_report,base.group_user,1,1,1,1
+access_workmans_compensation_wizard,access_workmans_compensation_wizard,model_workmans_compensation_wizard,base.group_user,1,1,1,1

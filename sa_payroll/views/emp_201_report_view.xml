@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="emp_201_report_tree_view" model="ir.ui.view">
+        <field name="name">emp.201.report.tree</field>
+        <field name="model">emp.201.report</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0">
+                <field name="employee"/>
+                <field name="emp_code" optional="hide"/>
+                <field name="comp_reg_no" optional="hide"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="paye_remuneration" sum="Total PAYE Remuneration"/>
+                <field name="paye_amt" sum="Total PAYE AMT"/>
+                <field name="sdl_leviable_amt" sum="Total SDL LEVIABLE AMT"/>
+                <field name="sdl_amt_rsn" sum="Total SDL AMT RSN"/>
+                <field name="uif_remuneration" sum="Total UIF Remuneration"/>
+                <field name="uif_amt_rsn" sum="Total UIF AMT RSN"/>
+                <field name="eti_amt" sum="Total ETI AMT"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- action -->
+    <record model='ir.actions.act_window' id='emp_201_report_action'>
+        <field name="name">EMP201 Report</field>
+        <field name="res_model">emp.201.report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

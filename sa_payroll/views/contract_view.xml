@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_view_form_tax" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <field name='wage' position='attributes'>
+                <attribute name='readonly'>1</attribute>
+                <attribute name='force_save'>1</attribute>
+            </field>
+            <xpath expr="//page[@name='other']" position="after">
+                <page string="Contract Advantages">
+                    <group string="Contract Advantages">
+                        <field name="advantages_ids">
+                            <tree editable="bottom">
+                                <field name="input_type_id" string='Advantages'/>
+                                <field name="amount" />
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//group[@name='yearly_benefits']" position="after">
+                <group string='Tax Detail SA'>
+                    <field name='emp_tax_structure_id' required='1'/>
+                    <field name='financial_year_month_start' invisible='1'/>
+                    <!-- <field name='total_yearly_wage'/>
+                    <field name='current_month'/>
+                    <button name='copy_month_wise_data' type='object' string="Copy Month Wise Data"/>
+                    <br/> -->
+                    <button colspan="2" name='copy_month_wise_data' type='object' string="Copy Month Wise Data"/>
+                    <field name='show_in_detail'/>
+                    <label for="month_by_month_salary_ids" string="Month by Month" invisible="show_in_detail == False"/>
+                    <div colspan="2">
+                        <field name='month_by_month_salary_ids' invisible="show_in_detail == False">
+                            <tree editable='bottom' create="false" edit="false" delete="0">
+                                <field name='month'/>
+                                <field name='wage' sum="Total Wage"/>
+                                <field name='bonus' sum='Total Bonus'/>
+                                <field name='total' sum="Total Wage With Bonus"/>
+                                <!-- <field name='to_update' invisible='1'/>
+                                <field name='to_update_amount' invisible='1'/> -->
+                            </tree>
+                        </field>
+                    </div>
+                </group>
+                <group string="Cost to Company">
+                    <field name='monthly_cost_to_company'/>
+                    <button colspan='2' name="clear_data_new_year" string="Clear Data" type="object" groups='hr_contract.group_hr_contract_manager'/>
+                    <label for="salary_increase_ids" string="Salary Increase"/>
+                    <div colspan="2">
+                        <field name='salary_increase_ids' domain="[('to_hide','=',False)]" context="{'default_old_amount':monthly_cost_to_company}">
+                            <tree editable='bottom' delete="0">
+                                <field name='is_triggered' column_invisible='1'/>
+                                <field name='to_hide' column_invisible='1'/>
+                                <field name='increase_month' required='1' readonly="is_triggered == True"/>
+                                <field name='year' required='1' readonly="is_triggered == True"/>
+                                <field name='old_amount' sum="Total Wage" required='1' readonly="is_triggered == True"/>
+                                <field name='new_monthly_fixed_ctc' required='1' readonly="is_triggered == True"/>
+                                <field name='increase_amount' sum='Total Bonus' required='1' readonly="1"/>
+                                <field name='is_triggered' readonly='1' invisible='0'/>
+                                <button name="action_apply_increase" string="Apply" type="object" invisible="is_triggered == True"/>
+                            </tree>
+                        </field>
+                    </div>
+                    <field name='annual_fix_cost_to_company'/>
+                    <field name='annual_bonus'/>
+                    <field name='bonus_month'/>
+                    <field name='total_cost_to_company'/>
+                </group>
+                <group string='Commission' invisible='1'>
+                    <field name="commission_type"/>
+                    <field name="commission_amount" invisible="commission_type == False"/>
+                    <field name='target_commision_amount'/>
+                    <field name='commission_amount'/>
+                </group>
+                <group string='Medical Benefits' invisible='0'>
+                    <field name='eligible_for_tax_rebate'/>
+                    <field name='spouse'/>
+                    <field name='no_of_children'/>
+                    <field name='other_dependents'/>
+                    <field name='medical_structure_id'/>
+                    <field name='medical_amount' readonly='1'/>
+                    <button name="emp_monthly_medical_extra" string="Calculate" type="object"/>
+                    <br/>
+                    <!-- <field name="id_number_on_palyslip"/> -->
+                </group>
+                <group string='Other Benefit'>
+                    <field name='overtime_1_5' readonly='1' force_save='1'/>
+                    <field name='overtime_2_0' readonly='1' force_save='1'/>
+                    <field name='overtime_zar'/>
+                    <field name='standby_ah_all'/>
+                    <field name='shift_allowance'/>
+                    <field name='gross_retirement'/>
+                    <field name='executive_allowance'/>
+                    <field name='graveyard_shift_allowance'/>
+                    <field name='cell_phone_allowance'/>
+                </group>
+                <group string='ETI and SDL'>
+                    <field name='qualify_for_eti'/>
+                    <field name='first_year' 
+                        invisible="qualify_for_eti == False"/>
+                    <field name='second_year' invisible="qualify_for_eti == False"/> 
+
+                    <label for="sdl_rate"/>
+                    <div class="o_row" name="div_sdl_rate">
+                        <field name="sdl_rate"/>
+                        <span>%</span>
+                    </div>
+                </group>
+
+                <!-- <group string='SDL'>
+                    <label for="sdl_rate"/>
+                    <div class="o_row" name="div_sdl_rate">
+                        <field name="sdl_rate"/>
+                        <span>%</span>
+                    </div>
+                </group> -->
+                <group string="Company Contribution">
+                    <field name='employer_provident_fund'/>
+                    <field name='provident_fund_percent'/>
+                    <field name='medical_aid_contribution'/>
+                    <field name='disability_cover'/>
+                    <field name='life_insurance'/>
+                    <field name='my_health'/>
+                    <!-- <field name='skill_development_levy'/> -->
+                    <!-- <field name='smart_funder_basic_education_tax'/>
+                    <field name='smart_funder_further_education_tax'/> -->
+                    <!-- <field name='unemployment_insurance_fund'/> -->
+                    <field name='vitality'/>
+                    <!-- <field name='death_benefit'/> -->
+                    <field name='company_vehicle'/>
+                    <field name='company_vehicle_id'/>
+                    <field name='total_company_contribution' invisible='1'/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="emp_tax_structure_form" model="ir.ui.view">
+        <field name="name">emp.tax.structure.form</field>
+        <field name="model">emp.tax.structure</field>
+        <field name="arch" type="xml">
+            <form string="Structure">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='name'/>
+                            <field name='rebate'/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name='structure_line_ids'>
+                            <tree editable='bottom'>
+                                <field name="amount_from"/>
+                                <field name="amount_to"/>
+                                <field name="fix_amount"/>
+                                <field name="tax_amount"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="emp_tax_structure_lines_form" model="ir.ui.view">
+        <field name="name">emp.tax.structure.lines.form</field>
+        <field name="model">emp.tax.structure.lines</field>
+        <field name="arch" type="xml">
+            <form string="Structure">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="amount_from"/>
+                        <field name="amount_to"/>
+                        <field name="fix_amount"/>
+                        <field name="tax_amount"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="emp_tax_structure_lines_tree" model="ir.ui.view">
+        <field name="name">emp.tax.structure.lines.tree</field>
+        <field name="model">emp.tax.structure.lines</field>
+        <field name="arch" type="xml">
+            <tree string="Structure">
+                <field name="amount_from"/>
+                <field name="amount_to"/>
+                <field name="fix_amount"/>
+                <field name="tax_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="emp_tax_structure_lines_form" model="ir.ui.view">
+        <field name="name">medical.tax.structure.form</field>
+        <field name="model">medical.tax.structure</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name='name'/>
+                        <field name='line_ids'>
+                            <tree string="Structure" editable='botton'>
+                                <field name="level"/>
+                                <field name="name"/>
+                                <field name="amount_monthly"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_payslip_input_type_view_form_inherit_is_default" model="ir.ui.view">
+        <field name="name">hr.payslip.input.type.form</field>
+        <field name="model">hr.payslip.input.type</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_input_type_view_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="is_default_advantage"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!--Tree view of the instance-->
+    <record id="id_indicator_tree_view_ept" model="ir.ui.view">
+        <field name="name">id.indicator.tree</field>
+        <field name="model">id.indicator</field>
+        <field name="arch" type="xml">
+            <tree string="Id Indicator">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="id_indicator_form_view_ept" model="ir.ui.view">
+        <field name="name">id indicator form</field>
+        <field name="model">id.indicator</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Instance">
+                <sheet>
+                   <div>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_id_indicator_ept" model="ir.actions.act_window">
+        <field name="name">Id Indicator</field>
+        <field name="res_model">id.indicator</field>
+        <field name="view_id" ref="sa_payroll.id_indicator_tree_view_ept"/>
+        <field name="help" type="html">
+            <div class="oe_empty_shopify_instance">
+                <p class="o_view_nocontent_smiling_face">
+                    <b>There is no any Id Indicator configured yet.</b>
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <menuitem id="menu_id_indicator_ept"
+              name="Id Indicator" parent="hr.menu_human_resources_configuration"
+              action="action_id_indicator_ept"
+              sequence="99"/>
+</odoo>

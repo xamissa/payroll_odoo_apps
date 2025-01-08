@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_sa_emp">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center container">
+                            <h6> <t t-esc="doc.company_id.name"/> EMP 201 REPORT <t t-esc="doc.employee_id.emp_code"/> PRINTED ON <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/> FOR <t t-esc="doc.date_to.strftime('%d/%m/%Y')"/> </h6>
+
+                        </div>
+                        <div style="border-bottom: 1px solid black;"/>
+                        <br/>
+                        <table  class="table table-sm" style="font-size:10px !important;">
+                            <tr>
+                                <td rowspan="2" class="text-center">REP <t t-esc="doc.employee_id.emp_code"/></td>
+                                <td colspan="3" class="text-center">EMP201 PAYE, SDL and UIF Return</td>
+                                <td colspan="5" class="text-center">Company Reg No: <t t-esc="doc.company_id.company_registry"/></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center" colspan="2">__________PAYE__________</td>
+                                <td class="text-center" colspan="2">__________SDL__________</td>
+                                <td class="text-center" colspan="2">__________UIF__________</td>
+                                <td class="text-center" colspan="2">__________ETI__________</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">DEPT EMP CODE EMP NAME</td>
+                                <td class="text-center">REMUNERATION</td>
+                                <td class="text-center">PAYE AMT</td>
+                                <td class="text-center">LEVIABLE AMT</td>
+                                <td class="text-center">SDL AMT RSN</td>
+                                <td class="text-center">REMUNERATION</td>
+                                <td class="text-center">UIF AMT RSN</td>
+                                <td class="text-center">AMOUNT</td>
+                                <td class="text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">TOTALS</td>
+                                <td class="text-right"><t t-esc="doc.compute_paye_remuneration()" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td class="text-right"><t t-esc="doc.compute_paye_amt()" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td class="text-right"><t t-esc="doc.compute_leviable_amt()" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td class="text-right"><t t-esc="doc.sdl" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td class="text-right"><t t-esc="doc.compute_uif_remuneration()" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td class="text-right"><t t-esc="doc.compute_uif_amt()" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td class="text-right"><t t-esc="doc.eti" t-options='{"widget": "float", "precision": 2}'/></td>
+                                <td class="text-right"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_sa_emp" model="ir.actions.report">
+        <field name="name">SA EMPLOYEE</field>
+        <field name="model">sa.emp.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sa_payroll.report_sa_emp</field>
+        <field name="report_file">sa_payroll.report_sa_emp</field>
+        <field name="print_report_name">'EMP - %s' % (object.employee_id.name)</field>
+        <!-- <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/> -->
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+
+
+    

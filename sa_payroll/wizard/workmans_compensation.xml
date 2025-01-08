@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_workmans_compensation_wizard_form" model="ir.ui.view">
+        <field name="name">workmans.compensation.wizard.form</field>
+        <field name="model">workmans.compensation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="SA EMP Report">
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="generate_report" type="object" string="Print Report" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_highlight" special="cancel"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_workmans_compensation_wizard" model="ir.actions.act_window">
+        <field name="name">Workmans Compensation</field>
+        <field name="res_model">workmans.compensation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_workmans_compensation_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_workmans_compensation_report"
+        name="Workmans Compensation"
+        parent="hr_payroll.menu_hr_payroll_report"
+        action="action_workmans_compensation_wizard"
+        sequence="99"/>
+</odoo>

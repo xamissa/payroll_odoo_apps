@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sa_emp_report_wizard_form" model="ir.ui.view">
+        <field name="name">sa.emp.wizard</field>
+        <field name="model">sa.emp.wizard</field>
+        <field name="arch" type="xml">
+            <form string="SA EMP Report">
+                <!-- <group>
+                    <field name="name"/>
+                    <field name="employee_id" widget="many2one_avatar_employee"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group> -->
+                <group>
+                    <p colspan="2" class="alert alert-warning" role="alert">
+                            <div style="color:#ff0000; font-size:15px;">
+                                Are you sure you want to print the EMP201 report?
+                            </div>
+                        </p>
+                </group>
+                <footer>
+                    <button name="generate_report" type="object" string="Generate Detailed Report" class="oe_highlight"/>
+                    or
+                    <button name="summary_report" type="object" string="Generate Summary Report" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_highlight" special="cancel"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_sa_emp_report_wizard" model="ir.actions.act_window">
+        <field name="name">Easy File</field>
+        <field name="res_model">sa.emp.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_sa_emp_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_sa_emp_report_wizard_form_odoo" model="ir.ui.view">
+        <field name="name">sa.emp.wizard</field>
+        <field name="model">sa.emp.wizard</field>
+        <field name="arch" type="xml">
+            <form string="SA EMP Report">
+                <group>
+                    <field name="employee_id" widget="many2one_avatar_employee"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+                <footer>
+                    <button name="generate_report_odoo" type="object" string="Generate Report" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_highlight" special="cancel"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_sa_emp_report_wizard_odoo" model="ir.actions.act_window">
+        <field name="name">EMP201 Report</field>
+        <field name="res_model">sa.emp.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_sa_emp_report_wizard_form_odoo"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sa_emp_report_odoo"
+        name="EMP201 Report"
+        parent="hr_payroll.menu_hr_payroll_report"
+        action="action_sa_emp_report_wizard_odoo"
+        sequence="99"/>
+</odoo>

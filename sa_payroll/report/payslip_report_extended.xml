@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="header_part">
+    <div class="container">
+        <div class="row">
+            <div class="col-4"/>
+            <div class="col-4"><img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" class="float-start" alt="Logo" style="max-height: 220px; width:220px;margin-left:20px;"/></div>
+            <div class="col-4"/>
+        </div>
+    </div>
+    <div class="container" style="border-bottom:2px solid black;padding-top: 10px;padding-bottom: 20px;">
+
+      <div class="row">
+        <div class="col-4">
+            <div class="row" style="font-size:11px">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Emp Code</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id.emp_code">
+                        <sapn t-esc="o.employee_id.emp_code"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Emp Name</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id.name">
+                        <sapn t-esc="o.employee_id.name"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Know As</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id.kanow_as">
+                        <sapn t-esc="o.employee_id.kanow_as"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Id Number</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id.id_number">
+                        <sapn t-esc="o.employee_id.id_number"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Emp Address</strong>
+                </div>
+                <div class="col-8">
+                    <sapn t-esc="o.employee_id.private_street"/>,
+                    <span t-esc="o.employee_id.private_street2"/>, <sapn t-esc="o.employee_id.private_zip"/>, <sapn t-esc="o.employee_id.private_city"/>,<sapn t-esc="o.employee_id.private_country_id.name"/>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Income Tax No</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id.tax_no">
+                        <sapn t-esc="o.employee_id.tax_no"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Cost Centre</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id and o.employee_id.work_location_id and o.employee_id.work_location_id">
+                        <sapn t-esc="o.employee_id.work_location_id.name"/>
+                    </t>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row" style="font-size:11px;">
+                <div class="col-5" style="font-weight:900">
+                    <strong>Date Joined Group</strong>
+                </div>
+                <div class="col-7">
+                    <t t-if="o.contract_id.date_start">
+                        <t t-if="o.contract_id.original_start_date">
+                            <sapn t-esc="o.contract_id.original_start_date"/>
+                        </t>
+                        <t t-else="">
+                            <sapn t-esc="o.contract_id.date_start"/>
+                        </t>
+                    </t>
+                </div>
+            </div>
+            <t t-set="rate_value" t-value="o.contract_id._get_hourly_rate()"/>
+            <!-- <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-5" style="font-weight:900">
+                    <strong>Rate Per Hour</strong>
+                </div>
+                <div class="col-7">
+                    <span t-esc="float(rate_value.get('hourly_rate'))" t-options="{'widget': 'float', 'precision': 2}"/>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-5" style="font-weight:900">
+                    <strong>Hours Per Period</strong>
+                </div>
+                <div class="col-7">
+                   <span t-esc="float(rate_value.get('days_per_week'))" t-options="{'widget': 'float', 'precision': 2}"/>
+                </div>
+            </div> -->
+            <!-- <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-5" style="font-weight:900">
+                    <strong>Termination Date</strong>
+                </div>
+                <div class="col-7">
+                    <t t-if="o.contract_id.date_start">
+                        <sapn t-esc="o.contract_id.date_end"/>
+                    </t>
+                </div>
+            </div> -->
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Job Title</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id.job_id">
+                        <sapn t-esc="o.employee_id.job_id.name"/>
+                    </t>
+                </div>
+            </div>
+           <!-- <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Medical Aid</strong>
+                </div>
+                <div class="col-8">
+                    
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Membership No</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.employee_id and o.employee_id.permit_no">
+                        <sapn t-esc="o.employee_id.permit_no"/>
+                    </t>
+                </div>
+            </div>-->
+        </div>
+        <div class="col-4">
+            <div class="row">
+                <div class="col-4" style="font-size:11px;font-weight:900">
+                    <strong>Pay Period</strong>
+                </div>
+                <div class="col-8" style="font-size:11px;">
+                    <t t-if="o.date_to or o.date_from">
+                        <span t-esc="o.date_from"/> - <sapn t-esc="o.date_to"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Co.Name</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.company_id.name">
+                        <sapn t-esc="o.company_id.name"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Co. Address</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="o.company_id.partner_id">
+                        <span t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;,], &quot;no_marker&quot;: true}"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>PAYE Ref No</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="request.env.company.paye_ref_number">
+                        <sapn t-esc="request.env.company.paye_ref_number"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>UIF Reg No</strong>
+                </div>
+                <div class="col-8">
+                    <t t-if="request.env.company.uif_ref_number">
+                        <sapn t-esc="request.env.company.uif_ref_number"/>
+                    </t>
+                </div>
+            </div>
+            <div class="row" style="font-size:11px; margin-top:5px;">
+                <div class="col-4" style="font-weight:900">
+                    <strong>Provident</strong>
+                </div>
+                <div class="col-8">
+                     <t t-if="o.contract_id and o.contract_id.provident_fund_percent">
+                        <span t-esc="o.contract_id.provident_fund_percent"/><span>%</span>
+                    </t> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
+<template id="body_part">
+    <div class="container" style="margin:0;padding:0;">
+        <div class="row" style="margin-top:5px;">
+            <div class="col-6" style="padding:2px; font-size:11px;">
+                <div class="row">
+                    <div class="col-12 text-center" style="background:#d4d4d4;font-weight:900"><strong>Earnings</strong></div>
+                </div>
+            </div>
+            <div class="col-6" style="padding:2px;font-size:11px;">
+                <div class="row">
+                    <div class="col-12 text-center" style="background:#d4d4d4;font-weight:900;"><strong>Deductions</strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left:0px;margin-right:0px;">
+            <div class="col-6" style="padding:5px; font-size:11px;">
+                <t t-set="total_earning" t-value="0.0"/>
+                <div class="row">
+                    <table class="table table-borderless" style="border:none;" cellspacing="0">
+                        <tr>
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0;font-weight:900">Description</th>
+                            <th style="text-align : center;font-weight:900;padding:1px;margin:0;font-weight:900">Units</th>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0;font-weight:900">Amount</th>
+                        </tr>
+                        <tr style="line-height: 0;" t-if="o.line_ids" t-foreach="o.line_ids.filtered(lambda x: x.amount != 0 and x.category_id and x.category_id.code in ['OE', 'ALW'] or x.salary_rule_id.code in ['BASIC', '3601', '4701'])" t-as="line">
+                            <td style="text-align : left;padding:1px;margin:0"><strong><span t-esc="line.name"/></strong></td>
+                            <td style="text-align : center;padding:1px;margin:0"><strong/><span t-esc="abs(00)" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <td style="text-align : right; padding:1px;margin:0"><span t-esc="abs(line.amount)" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <t t-set="total_earning" t-value="total_earning + abs(line.amount)"/>
+                        </tr>
+                        <tr style="border-top:2px solid black;">
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0;font-weight:900">Total Earnings</th>
+                            <th style="text-align : center;font-weight:900;padding:1px;margin:0"/>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0"><span t-esc="round(total_earning, 2)" t-options="{'widget': 'float', 'precision': 2}"/></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-6" style="padding:5px; font-size:11px;margin-bottom:0px;">
+                <div class="row">
+                     <t t-set="total_deduction" t-value="0.0"/>
+                    <table class="table table-borderless" style="border:none;">
+                        <tr>
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0;font-weight:900">Description</th>
+                            <th style="text-align : center;font-weight:900;padding:1px;margin:0;font-weight:900">Units</th>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0;font-weight:900">Amount</th>
+                        </tr>
+                        <tr t-if="o.line_ids" style="border:none;" t-foreach="o.line_ids.filtered(lambda x: x.amount != 0 and x.category_id and x.category_id.code == 'DED')" t-as="line">
+                            <td style="text-align : left;padding:1px;margin:0"><strong><span t-esc="line.name"/></strong></td>
+                            <td style="text-align : center;padding:1px;margin:0"><strong/><span t-esc="abs(00)" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <td style="text-align : right;padding:1px;margin:0"><span t-esc="abs(line.amount)" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <t t-set="total_deduction" t-value="total_deduction + abs(line.amount)"/>
+                        </tr>
+                        <tr style="border-top:2px solid black;">
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0;font-weight:900">Total Deductions</th>
+                            <th style="text-align : center;font-weight:900;padding:1px;margin:0"/>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0"><span t-esc="round(total_deduction, 2)" t-options="{'widget': 'float', 'precision': 2}"/></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <t t-set="total_net" t-value="0.0"/>
+        <t t-if="total_deduction or total_earning">
+            <t t-set="total_net" t-value="round(total_earning, 2) - round(total_deduction, 2)"/>
+        </t>
+        <div class="row" style="background:#d4d4d4;border-top:3px solid black;">
+            <div class="col-12">
+            </div>
+        </div>
+        <div class="row" style="background:#d4d4d4;">
+            <div class="col-6 text-center" style="padding:2px; font-size:11px;">
+            </div>
+            <div class="col-6" style="font-size:11px;font-weight:900;">
+                <table class="table table-borderless" style="border:none;background:#d4d4d4;padding:0px;margin:0">
+                    <tr style="background:#d4d4d4;">
+                        <th style="text-align : left;font-weight:900;padding:1px;margin:0; background:#d4d4d4;font-weight:900">Net Pay</th>
+                        <th style="text-align : center;font-weight:900;padding:1px;margin:0;background:#d4d4d4;"/>
+                        <th style="text-align : right;font-weight:900;padding:1px;margin:0;background:#d4d4d4;font-weight:900"><span t-esc="round(total_net, 2)" t-options="{'widget': 'float', 'precision': 2}"/></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" style="background:#d4d4d4;border-bottom:2px solid black;margin-bottom:5px;">
+            <div class="col-12">
+            </div>
+        </div>
+        <div class="row" style="background:#d4d4d4; border-top:2px solid black; margin-top:5px;">
+            <div class="col-6" style="padding:2px; font-size:11px;">
+                <div class="row">
+                    <div class="col-12 text-center" style="font-weight:900;"><strong>Company Contributions</strong></div>
+                </div>
+            </div>
+            <div class="col-6" style="padding:2px;font-size:11px;">
+                <div class="row">
+                    <div class="col-12 text-center" style="font-size:11px;font-weight:900"><strong>Year To Date Totals</strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left:0px;margin-right:0px;">
+            <div class="col-6" style="padding:5px; font-size:11px;">
+                <t t-set="total_company_contribution" t-value="0.0"/>
+                <div class="row">
+                    <table class="table table-borderless" style="border:none;" cellspacing="0">
+                        <tr>
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0;font-weight:900">Description</th>
+                            <th style="text-align : center;font-weight:900;padding:1px;margin:0;font-weight:900">Units</th>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0; font-weight:900">Amount</th>
+                        </tr>
+                        <tr t-if="o.line_ids" 
+                            t-foreach="o.line_ids.filtered(lambda x: x.amount != 0 and x.category_id and x.category_id.code == 'COMP' or x.salary_rule_id.code == '4474')" t-as="line">
+                            <td style="text-align : left;padding:1px;margin:0"><strong><span t-esc="line.name"/></strong></td>
+                            <td style="text-align : center;padding:1px;margin:0"><strong/><span t-esc="abs(00)" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <td style="text-align : right;padding:1px;margin:0"><span t-esc="abs(line.amount)" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <t t-set="total_company_contribution" t-value="total_company_contribution + abs(line.amount)"/>
+                        </tr>
+                        <tr style="border-top:2px solid black;">
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0 ;font-weight:900;font-weight:900">Total Company Contributions</th>
+                            <th style="text-align : center;font-weight:900;padding:1px;margin:0"/>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0"><span t-esc="round(total_company_contribution,2)" t-options="{'widget': 'float', 'precision': 2}"/></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-6" style="padding:5px; font-size:11px;margin-bottom:0px;">
+                <div class="row">
+                    <t t-set="total_year_total" t-value="0.0"/>
+                    <t t-set="total_year_vals" t-value="o.get_taxable_rarnings()"/>
+                    <table class="table table-borderless" style="border:none;">
+                        <tr>
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0;font-weight:900">Description</th>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0;font-weight:900">Amount</th>
+                        </tr>
+                        <tr style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Tax Paid</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="total_year_vals.get('taxable_paid')">
+                                    <span t-esc="abs(total_year_vals.get('taxable_paid', 00.00))" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                         <tr style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Taxable Earnings</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="total_year_vals.get('taxable_earning')">
+                                    <span t-esc="abs(total_year_vals.get('taxable_earning'))" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                         <tr style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Taxable Company Contributions</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="total_year_vals.get('taxable_company_contributions_amount')">
+                                    <span t-esc="abs(total_year_vals.get('taxable_company_contributions_amount'))" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                         <tr style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Fringe Benefits</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="total_year_vals.get('fringe_benefits')">
+                                    <span t-esc="abs(total_year_vals.get('fringe_benefits'))" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Tax Deductible Deductions</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                 <t t-if="total_year_vals.get('tax_deductible_deductions')">
+                                    <span t-esc="abs(total_year_vals.get('tax_deductible_deductions'))" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <!-- <tr style="margin-top:0px;margin-bottom:0px;">
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0">Private Contributions</th>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0">
+                                <t t-if="total_year_vals.get('private_contributions')">
+                                    <span t-esc="abs(total_year_vals.get('private_contributions'))" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </th>
+                        </tr> -->
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6" style="padding:2px; font-size:11px;">
+                <div class="row">
+                </div>
+            </div>
+            <div class="col-6" style="padding:2px;font-size:11px;background:#d4d4d4;border-top:2px solid black;">
+                <div class="row">
+                    <div class="col-12 text-center" style="font-size:11px;font-weight:900"><strong>Cost to company</strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left:0px;margin-right:0px;">
+            <div class="col-6" style="padding:5px; font-size:11px;">
+            </div>
+            <div class="col-6" style="padding:5px; font-size:11px;margin-bottom:0px;">
+                <div class="row">
+                    <table class="table table-borderless" style="border:none;">
+                        <t t-set="total_value" t-value="0.0"/>
+                        <t t-set="basic_salary" t-value="o.line_ids.filtered(lambda x: x.salary_rule_id and x.salary_rule_id.code == 'BASIC')"/>
+                        <t t-set="medical_aid" t-value="o.line_ids.filtered(lambda x: x.salary_rule_id and x.salary_rule_id.code == '4474')"/>
+                        <t t-set="provident_fund" t-value="o.line_ids.filtered(lambda x: x.salary_rule_id and x.salary_rule_id.code == '4003')"/>
+                        <t t-set="life_insurance" t-value="o.line_ids.filtered(lambda x: x.salary_rule_id and x.salary_rule_id.code == '3801(3)')"/>
+                        <t t-set="disability_cover" t-value="o.line_ids.filtered(lambda x: x.salary_rule_id and x.salary_rule_id.code == '3808')"/>
+                        <tr>
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0">Description</th>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0">Amount</th>
+                        </tr>
+                         <tr t-if="basic_salary and basic_salary.mapped('amount')" style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Basic Salary</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="basic_salary">
+                                    <span t-esc="abs(basic_salary[0].amount)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <t t-set="total_value" t-value="total_value + basic_salary[0].amount"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="abs(0.00)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr t-if="medical_aid and medical_aid.mapped('amount')" style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Medical Aid</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="medical_aid">
+                                    <span t-esc="abs(medical_aid[0].amount)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <t t-set="total_value" t-value="total_value + medical_aid[0].amount"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="abs(0.00)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr t-if="provident_fund and provident_fund.mapped('amount')" style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Provident Fund</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="provident_fund">
+                                    <span t-esc="abs(provident_fund[0].amount)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <t t-set="total_value" t-value="total_value + provident_fund[0].amount"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="abs(0.00)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr t-if="life_insurance and life_insurance.mapped('amount')" style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Life Insurance</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                               <t t-if="life_insurance">
+                                    <span t-esc="abs(life_insurance[0].amount)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <t t-set="total_value" t-value="total_value + life_insurance[0].amount"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="abs(0.00)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr t-if="disability_cover and disability_cover.mapped('amount')" style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Disability Cover</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="disability_cover">
+                                    <span t-esc="abs(disability_cover[0].amount)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <t t-set="total_value" t-value="total_value + disability_cover[0].amount"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="abs(0.00)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr t-if="o.contract_id and o.contract_id.my_health" style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>My Health</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="disability_cover">
+                                    <span t-esc="abs(o.contract_id.my_health)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <t t-set="total_value" t-value="total_value + o.contract_id.my_health"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="abs(0.00)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+
+                        <tr t-if="o.contract_id and o.contract_id.vitality" style="margin-top:0px;margin-bottom:0px;">
+                            <td style="text-align : left; padding:0;margin:0;padding:1px;margin:0"><strong>Vitality</strong></td>
+                            <td style="text-align : right; padding:0;margin:0;padding:1px;margin:0">
+                                <t t-if="disability_cover">
+                                    <span t-esc="abs(o.contract_id.vitality)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                    <t t-set="total_value" t-value="total_value + o.contract_id.vitality"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="abs(0.00)" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </t>
+                            </td>
+                        </tr>
+
+                        <tr style="border-top:2px solid black;">
+                            <th style="text-align : left;font-weight:900;padding:1px;margin:0">Total Cost To Company</th>
+                            <th style="text-align : right;font-weight:900;padding:1px;margin:0"><span t-esc="abs(total_value)" t-options="{'widget': 'float', 'precision': 2}"/></th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row" style="margin-top:10px;border-top:2px solid black;">
+            <div class="col-12" style="font-size:11px;">
+                <div class="row">
+                    <div class="col-12 text-start" style="background:#d4d4d4;padding:2px;"><strong>Leave Balances</strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left:0px;margin-right:0px;font-size:11px;">
+            <t t-set="leave_balances_line" t-value="o.get_leave_balances()"/>
+            <t t-set="total_remaing_live" t-value="0.0"/>
+            <table class="table table-borderless" style="border:none;">
+                <tr>
+                    <th style="text-align : left;font-weight:900;padding:1px;margin:0">Description</th>
+                    <th style="text-align : right;font-weight:900;padding:1px;margin:0">Balance</th>
+                </tr>
+                <tr t-if="leave_balances_line" t-foreach="leave_balances_line" t-as="line">
+                    <td style="text-align : left;padding:1px;margin:0"><strong><span t-esc="line.get('leave_type')"/></strong></td>
+                    <td style="text-align : right;padding:1px;margin:0"><span t-esc="line.get('remaining_leaves')" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    <t t-set="total_remaing_live" t-value="total_remaing_live + line.get('remaining_leaves')"/>
+                </tr>
+                <tr style="border-top:2px solid black;">
+                    <th style="text-align : left;font-weight:900;padding:1px;margin:0">Total Annual Leave</th>
+                    <th style="text-align : right;font-weight:900;padding:1px;margin:0"><span t-esc="abs(total_remaing_live)" t-options="{'widget': 'float', 'precision': 2}"/></th>
+                </tr>
+            </table>
+        </div> -->
+        <!-- <div class="row" style="background:#d4d4d4;border-top:2px solid black;">
+            <div class="col-12" style="padding:2px; font-size:11px;text-align : left;font-weight:900">
+                <strong>Leave Balance</strong>
+            </div>
+        </div>
+        <div class="row" style="margin-left:0px;margin-right:0px;">
+            <div class="col-12" style="padding:5px; font-size:11px;margin-bottom:0px;background:#d4d4d4;">
+                <table class="table table-borderless" style="border:none;">
+                    <tr style="margin-top:0px;margin-bottom:0px;">
+                        <th style="text-align : left;font-weight:900;padding:1px;margin:0">Description</th>
+                        <th style="text-align : right;font-weight:900;padding:1px;margin:0">Cycle End Date</th>
+                        <th style="text-align : right;font-weight:900;padding:1px;margin:0">Accrued</th>
+                        <th style="text-align : right;font-weight:900;padding:1px;margin:0">Taken</th>
+                        <th style="text-align : right;font-weight:900;padding:1px;margin:0">Balance C\Fwd</th>
+                    </tr>
+                </table>
+            </div>
+        </div> -->
+    </div>
+</template>
+<template id="report_payslip_one">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="sa_payroll.invoice_layout">
+                <div class="page">
+                    <t t-call="sa_payroll.header_part"/>
+                    <t t-call="sa_payroll.body_part"/>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</odoo>

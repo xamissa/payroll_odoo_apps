@@ -1,0 +1,3335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--  Tax Structure -->
+        <record id="sa_tax_structre" model="emp.tax.structure">
+            <field name="name">Tax Structure-2024</field>
+            <field name="rebate">17235.00</field>
+            <field name='structure_line_ids'>
+                <record id="line1" model="emp.tax.structure.lines">
+                    <field name="amount_from">0.00</field>
+                    <field name="amount_to">237100.00</field>
+                    <field name="fix_amount">0.00</field>
+                    <field name='tax_amount'>18.00</field>
+                </record>
+
+                <record id="line2" model="emp.tax.structure.lines">
+                    <field name="amount_from">237100.00</field>
+                    <field name="amount_to">370500.00</field>
+                    <field name="fix_amount">42678.00</field>
+                    <field name='tax_amount'>26.00</field>
+                </record>
+
+                <record id="line3" model="emp.tax.structure.lines">
+                    <field name="amount_from">370500.00</field>
+                    <field name="amount_to">512800.00</field>
+                    <field name="fix_amount">77362.00</field>
+                    <field name='tax_amount'>31.00</field>
+                </record>
+
+                <record id="line4" model="emp.tax.structure.lines">
+                    <field name="amount_from">512800.00</field>
+                    <field name="amount_to">673000.00</field>
+                    <field name="fix_amount">121475.00</field>
+                    <field name='tax_amount'>36.00</field>
+                </record>
+
+                <record id="line5" model="emp.tax.structure.lines">
+                    <field name="amount_from">673000.00</field>
+                    <field name="amount_to">857900.00</field>
+                    <field name="fix_amount">179147.00</field>
+                    <field name='tax_amount'>39.00</field>
+                </record>
+
+                <record id="line6" model="emp.tax.structure.lines">
+                    <field name="amount_from">857900.00</field>
+                    <field name="amount_to">1817000.00</field>
+                    <field name="fix_amount">251258.00</field>
+                    <field name='tax_amount'>41.00</field>
+                </record>
+
+                <record id="line7" model="emp.tax.structure.lines">
+                    <field name="amount_from">1817000.00</field>
+                    <field name="amount_to">9999999.00</field>
+                    <field name="fix_amount">644489.00</field>
+                    <field name='tax_amount'>45.00</field>
+                </record>
+            </field>
+        </record>
+
+        <record id="sa_medical_tax_structre" model="medical.tax.structure">
+            <field name="name">Medical Aid Rebate 2024</field>
+            <field name='line_ids'>
+                <record id="medical_line1" model="medical.tax.structure.line">
+                    <field name="level">1</field>
+                    <field name="name">Principal Member</field>
+                    <field name="amount_monthly">364.00</field>
+                </record>
+
+                <record id="medical_line2" model="medical.tax.structure.line">
+                    <field name="level">2</field>
+                    <field name="name">Principal member + spouse</field>
+                    <field name="amount_monthly">728.00</field>
+                </record>
+
+                <record id="medical_line3" model="medical.tax.structure.line">
+                    <field name="level">3</field>
+                    <field name="name">Children + other dependants</field>
+                    <field name="amount_monthly">246.00</field>
+                </record>
+            </field>
+        </record>
+
+
+
+
+        <!-- Rule Category -->
+        <record id="sa_other_earning" model="hr.salary.rule.category">
+            <field name="name">Other Earnings</field>
+            <field name="code">OE</field>
+        </record>
+        <record id="sa_medical_aid_allowance" model="hr.salary.rule.category">
+            <field name="name">Medical Aid Allowance</field>
+            <field name="code">MAA</field>
+        </record>
+        <record id="sa_deductable_on_paye" model="hr.salary.rule.category">
+            <field name="name">Deductable on Paye</field>
+            <field name="code">4116</field>
+        </record>
+        <record id="sa_medical_aid_cc" model="hr.salary.rule.category">
+            <field name="name">Medical Aid CC</field>
+            <field name="code">MACC</field>
+        </record>
+        <record id="sa_taxable" model="hr.salary.rule.category">
+            <field name="name">Taxable</field>
+            <field name="code">TAX</field>
+        </record>
+
+        <record id="sa_non_taxable" model="hr.salary.rule.category">
+            <field name="name">Non-Taxable</field>
+            <field name="code">NOTAX</field>
+        </record>
+
+        <record id="sa_car_allowance" model="hr.salary.rule.category">
+            <field name="name">Car Allowance</field>
+            <field name="code">CALW</field>
+        </record>
+
+        <record id="sa_before_tax" model="hr.salary.rule.category">
+            <field name="name">Before Tax</field>
+            <field name="code">BTAX</field>
+        </record>
+
+        <record id="sa_special_earning" model="hr.salary.rule.category">
+            <field name="name">Special Earning</field>
+            <field name="code">SEARN</field>
+        </record>
+
+        <record id="sa_sevtax" model="hr.salary.rule.category">
+            <field name="name">SEVTAX</field>
+            <field name="code">SEVTAX</field>
+        </record>
+
+        <!-- Salary Structure -->
+        <record id="structure_0010" model="hr.payroll.structure">
+            <field name="name">Regular Pay (SA)</field>
+            <field name="type_id" ref="hr_contract.structure_type_employee"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_work_entry_contract.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" ref="base.za"/>
+            <field name='use_worked_day_lines'>True</field>
+            <field name='report_id' ref="sa_payroll.action_report_payslip_one"/>
+            <!-- <field name='rule_ids' eval="[(5, 0)]"/> -->
+        </record>
+        <record id="hr_contract.structure_type_employee" model="hr.payroll.structure.type">
+            <field name="default_struct_id" ref="structure_0010"/>
+        </record>
+
+        <record id="default_sa_basic_rule" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.BASIC"/>
+            <field name="code">BASIC</field>
+            <field name="name">Basic</field>
+            <field name="sequence">1</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+my_health = 0
+if 'MY_HEALTH' in inputs :
+    my_health = inputs['MY_HEALTH'].amount
+if payslip.id == 183:
+   month_data = {1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December'}
+   current_month = payslip.date_from.month
+   line = contract.month_by_month_salary_ids.filtered(lambda x: x.month == month_data[current_month])
+   result=line.wage
+else:
+   result = contract.wage #- my_health
+            </field>
+        </record>
+
+        <record id="default_sa_incentive_pay" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3601(1)</field>
+            <field name="name">Incentive Pay</field>
+            <field name="sequence">2</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'INCENTIVE' in inputs and inputs['INCENTIVE'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['INCENTIVE'].amount
+result_name = inputs['INCENTIVE'].name
+            </field>
+        </record>
+
+        <record id="default_sa_annual_bonud" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3605</field>
+            <field name="name">Annual Bonus</field>
+            <field name="sequence">3</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result=False
+if contract.annual_bonus > 0:
+    if payslip.date_from.month == contract.bonus_month:
+        result = True
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+if payslip.date_from.month == contract.bonus_month:
+     result = contract.annual_bonus
+else:
+   result = 0
+            </field>
+        </record>
+
+        <record id="default_sa_executive_allowance" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3713</field>
+            <field name="name">Executive Allowance</field>
+            <field name="sequence">4</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'EXE_ALLW' in inputs and inputs['EXE_ALLW'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['EXE_ALLW'].amount
+result_name = inputs['EXE_ALLW'].name
+            </field>
+        </record>
+
+        <record id="default_sa_graveyard_shift_allowance" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3713(1)</field>
+            <field name="name">Graveyard Shift Allowance</field>
+            <field name="sequence">5</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'GRAVEYARD_ALLW' in inputs and inputs['GRAVEYARD_ALLW'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['GRAVEYARD_ALLW'].amount
+result_name = inputs['GRAVEYARD_ALLW'].name
+            </field>
+        </record>
+
+        <record id="default_sa_cell_phone_allowance" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3713(2)</field>
+            <field name="name">Cell Phone Allowance</field>
+            <field name="sequence">6</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = contract.cell_phone_allowance and contract.cell_phone_allowance > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.cell_phone_allowance
+            </field>
+        </record>
+
+        <record id="default_sa_salary_back_pay" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3601(2)</field>
+            <field name="name">Salary Back Pay</field>
+            <field name="sequence">7</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'SALARY_BACK_PAY' in inputs and inputs['SALARY_BACK_PAY'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['SALARY_BACK_PAY'].amount
+result_name = inputs['SALARY_BACK_PAY'].name
+            </field>
+        </record>
+
+        <record id="default_sa_severance_pay" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3901</field>
+            <field name="name">Severance Pay</field>
+            <field name="sequence">9</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = payslip.is_severance_pay
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = payslip.week_pay * payslip.total_years_worked
+            </field>
+        </record>
+
+        <record id="default_sa_overtime_1_5" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3607</field>
+            <field name="name">Overtime 1.5</field>
+            <field name="sequence">10</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'OVERTIME_WEEK' in inputs and inputs['OVERTIME_WEEK'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['OVERTIME_WEEK'].amount * contract.overtime_1_5
+result_name = inputs['OVERTIME_WEEK'].name
+            </field>
+        </record>
+
+        <record id="default_sa_overtime_2_0" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3607(1)</field>
+            <field name="name">Overtime 2.0</field>
+            <field name="sequence">11</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'OVERTIME_PUB' in inputs and inputs['OVERTIME_PUB'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['OVERTIME_PUB'].amount * contract.overtime_2_0
+result_name = inputs['OVERTIME_PUB'].name
+            </field>
+        </record>
+
+        <record id="default_sa_overtime_amount" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3607(2)</field>
+            <field name="name">Overtime Amount</field>
+            <field name="sequence">11</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'OVERTIME_AMT' in inputs and inputs['OVERTIME_AMT'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['OVERTIME_AMT'].amount #* contract.overtime_2_0
+result_name = inputs['OVERTIME_AMT'].name
+            </field>
+        </record>
+
+        <record id="default_sa_leave_payout" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3605(1)</field>
+            <field name="name">Leave payouts</field>
+            <field name="sequence">12</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'LEAVEPAY' in inputs and inputs['LEAVEPAY'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['LEAVEPAY'].amount
+result_name = inputs['LEAVEPAY'].name
+            </field>
+        </record>
+
+         <record id="default_sa_overtime_1_5_amount" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3607(9)</field>
+            <field name="name">Overtime 1.5 Amount</field>
+            <field name="sequence">13</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'OVERTIME_AMT_1_5' in inputs and inputs['OVERTIME_AMT_1_5'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['OVERTIME_AMT_1_5'].amount #* contract.overtime_2_0
+result_name = inputs['OVERTIME_AMT_1_5'].name
+            </field>
+        </record>
+
+        <record id="default_sa_overtime_2_0_amount" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3607(10)</field>
+            <field name="name">Overtime 2.0 Amount</field>
+            <field name="sequence">14</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'OVERTIME_AMT_2_0' in inputs and inputs['OVERTIME_AMT_2_0'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['OVERTIME_AMT_2_0'].amount #* contract.overtime_2_0
+result_name = inputs['OVERTIME_AMT_2_0'].name
+            </field>
+        </record>
+
+        <record id="default_sa_commission" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3606</field>
+            <field name="name">Commission</field>
+            <field name="sequence">15</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'COMMS' in inputs and  inputs['COMMS'].amount > 0
+#if payslip.employee_commission_amount > 0 :
+#      result = True
+#else:
+#      result = False
+#result = payslip.employee_commission_amount
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['COMMS'].amount
+result_name = inputs['COMMS'].name
+# result = payslip.employee_commission_amount
+            </field>
+        </record>
+
+        <record id="default_sa_reimburse_travel" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3702</field>
+            <field name="name">Reimbursive Travel</field>
+            <field name="sequence">16</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'TRAVEL_EXPENSES' in inputs and inputs['TRAVEL_EXPENSES'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['TRAVEL_EXPENSES'].amount
+result_name = inputs['TRAVEL_EXPENSES'].name
+            </field>
+        </record>
+
+        <record id="default_sa_reimburse_expense_local" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3704</field>
+            <field name="name">Reimburseive Expense; subsistance Allowance - Local</field>
+            <field name="sequence">17</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'LOCAL_EXPENSES' in inputs and  inputs['LOCAL_EXPENSES'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['LOCAL_EXPENSES'].amount
+result_name = inputs['LOCAL_EXPENSES'].name
+            </field>
+        </record>
+
+        <record id="default_sa_reimburse_expense_subsistance_foreign" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3715</field>
+            <field name="name">Reimbursive Expense; subsistance - Foreign</field>
+            <field name="sequence">18</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'FOREIGN_EXPENSES' in inputs and  inputs['FOREIGN_EXPENSES'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['FOREIGN_EXPENSES'].amount
+result_name = inputs['FOREIGN_EXPENSES'].name
+            </field>
+        </record>
+
+        <record id="default_sa_travel_car_allow" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_non_taxable"/>
+            <field name="code">3701(3)</field>
+            <field name="name">Travel and Car Allowance</field>
+            <field name="sequence">19</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+if contract.company_vehicle > 0:
+   result=True
+else:
+   result=False
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.company_vehicle * 0.80
+            </field>
+        </record>
+
+        <record id="default_sa_travel_car_allow_taxable" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3701(3)(1)</field>
+            <field name="name">Travel and Car Allowance(taxable)</field>
+            <field name="sequence">20</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+if contract.company_vehicle > 0:
+   result=True
+else:
+   result=False
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.company_vehicle * 0.20
+            </field>
+        </record>
+
+        <record id="default_sa_travel_allow_back_pay" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3701(3)(2)</field>
+            <field name="name">Travel Allowance Back Pay</field>
+            <field name="sequence">21</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result='TRAVEL_BACK_PAY' in inputs and inputs['TRAVEL_BACK_PAY'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['TRAVEL_BACK_PAY'].amount
+result_name = inputs['TRAVEL_BACK_PAY'].name
+            </field>
+        </record>
+
+        <record id="default_sa_lumpsum_other" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3907</field>
+            <field name="name">Lump-sum Other</field>
+            <field name="sequence">22</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'LUM_SUM_OTHER' in inputs and  inputs['LUM_SUM_OTHER'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['LUM_SUM_OTHER'].amount
+result_name = inputs['LUM_SUM_OTHER'].name
+            </field>
+        </record>
+
+        <record id="default_sa_lumpsum_payment" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3901(1)</field>
+            <field name="name">Lump-sum Payment</field>
+            <field name="sequence">23</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'LUM_SUM_PAY' in inputs and inputs['LUM_SUM_PAY'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['LUM_SUM_PAY'].amount
+result_name = inputs['LUM_SUM_PAY'].name
+            </field>
+        </record>
+
+        <record id="default_sa_data_claim" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3713(5)</field>
+            <field name="name">Data Claim</field>
+            <field name="sequence">24</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'DATA_CLAIM_ALLW' in inputs and inputs['DATA_CLAIM_ALLW'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['DATA_CLAIM_ALLW'].amount
+result_name = inputs['DATA_CLAIM_ALLW'].name
+            </field>
+        </record>
+
+        <record id="default_sa_independent_contractors" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3616</field>
+            <field name="name">Independent Contractors</field>
+            <field name="sequence">25</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'IND_CONTRACT' in inputs and inputs['IND_CONTRACT'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['IND_CONTRACT'].amount
+result_name = inputs['IND_CONTRACT'].name
+            </field>
+        </record>
+
+        <record id="default_sa_insurance_allowance" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3713(7)</field>
+            <field name="name">Insurance Allowance</field>
+            <field name="sequence">26</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'INSURANCE_ALLW' in inputs and  inputs['INSURANCE_ALLW'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['INSURANCE_ALLW'].amount
+result_name = inputs['INSURANCE_ALLW'].name
+            </field>
+        </record>
+
+        <record id="default_sa_overachievement_bonus" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3605(2)</field>
+            <field name="name">Over Achievement Bonus</field>
+            <field name="sequence">30</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'OVER_ACH_BONUS' in inputs and inputs['OVER_ACH_BONUS'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['OVER_ACH_BONUS'].amount
+result_name = inputs['OVER_ACH_BONUS'].name
+            </field>
+        </record>
+
+        <record id="default_sa_pro_am_incentive" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3605(4)</field>
+            <field name="name">Pro-Am Incentive</field>
+            <field name="sequence">32</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PRO_EM_INCENTIVE' in inputs and inputs['PRO_EM_INCENTIVE'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['PRO_EM_INCENTIVE'].amount
+result_name = inputs['PRO_EM_INCENTIVE'].name
+            </field>
+        </record>
+
+        <record id="default_sa_psp_payment_hourly" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3601(4)</field>
+            <field name="name">PSP Payment Hourly</field>
+            <field name="sequence">33</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PSP_PAY' in inputs and  inputs['PSP_PAY'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['PSP_PAY'].amount
+result_name = inputs['PSP_PAY'].name
+            </field>
+        </record>
+
+        <record id="default_sa_scarce_skill_allowance" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3713(8)</field>
+            <field name="name">Scarce Skill Allowance</field>
+            <field name="sequence">38</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'SCARCE_SKILL' in inputs and inputs['SCARCE_SKILL'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['SCARCE_SKILL'].amount
+result_name = inputs['SCARCE_SKILL'].name
+            </field>
+        </record>
+
+        <record id="default_sa_shift_allowance" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3713(9)</field>
+            <field name="name">Shift Allowance</field>
+            <field name="sequence">39</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'SHIFT_ALLW' in inputs and inputs['SHIFT_ALLW'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['SHIFT_ALLW'].amount
+result_name = inputs['SHIFT_ALLW'].name
+            </field>
+        </record>
+
+        <record id="default_sa_standby_ah_all" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3601(8)</field>
+            <field name="name">Standby A/H All</field>
+            <field name="sequence">43</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+if contract.standby_ah_all > 0:
+   result=True
+else:
+   result=False
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.standby_ah_all
+            </field>
+        </record>
+
+        <record id="default_sa_standby_ah_all_amount" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3601(8)</field>
+            <field name="name">Standby A/H All Amount</field>
+            <field name="sequence">44</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'standby_amount' in inputs and inputs['standby_amount'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['standby_amount'].amount #* contract.overtime_2_0
+result_name = inputs['standby_amount'].name
+            </field>
+        </record>
+
+        <record id="default_sa_sundry_earning" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3601(9)</field>
+            <field name="name">Sundry Earning</field>
+            <field name="sequence">45</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'SUNDRY_EARN' in inputs and inputs['SUNDRY_EARN'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['SUNDRY_EARN'].amount
+result_name = inputs['SUNDRY_EARN'].name
+            </field>
+        </record>
+
+        <record id="default_sa_stipend" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3601(10)</field>
+            <field name="name">Stipend</field>
+            <field name="sequence">46</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'STIPEND' in inputs and inputs['STIPEND'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['STIPEND'].amount
+result_name = inputs['STIPEND'].name
+            </field>
+        </record>
+
+        <record id="default_sa_transport_allowance" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">3713(11)</field>
+            <field name="name">Transport Allowance</field>
+            <field name="sequence">47</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'TRANSPORT_ALLW' in inputs and inputs['TRANSPORT_ALLW'].amount  > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['TRANSPORT_ALLW'].amount 
+result_name = inputs['TRANSPORT_ALLW'].name
+            </field>
+        </record>
+
+        <record id="default_sa_petrol_card" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">3701(1)</field>
+            <field name="name">Petrol Card</field>
+            <field name="sequence">49</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PCARD' in inputs and inputs['PCARD'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['PCARD'].amount
+result_name = inputs['PCARD'].name
+            </field>
+        </record>
+
+        <record id="default_sa_gratuities" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_other_earning"/>
+            <field name="code">GRAT</field>
+            <field name="name">Gratuities</field>
+            <field name="sequence">51</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'GRAT' in inputs and inputs['GRAT'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['GRAT'].amount
+result_name = inputs['GRAT'].name
+            </field>
+        </record>
+
+        <record id="default_sa_reimbursement" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">4701</field>
+            <field name="name">Reimbursement</field>
+            <field name="sequence">52</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'REIMBURSEMENT' in inputs and inputs['REIMBURSEMENT'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['REIMBURSEMENT'].amount
+result_name = inputs['REIMBURSEMENT'].name
+            </field>
+        </record>
+
+        <record id="default_sa_petrol_ned_fleet_alw" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">4701(1)</field>
+            <field name="name">Petrol Ned Fleet ALW</field>
+            <field name="sequence">53</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>True</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PETROL_NED_FLEET_ALW' in inputs and inputs['PETROL_NED_FLEET_ALW'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['PETROL_NED_FLEET_ALW'].amount
+result_name = inputs['PETROL_NED_FLEET_ALW'].name
+            </field>
+        </record>
+
+        <record id="default_sa_gross" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.GROSS"/>
+            <field name="code">3601(12)</field>
+            <field name="name">Gross</field>
+            <field name="sequence">100</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>True</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>True</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+#result = categories['BASIC'] + categories['ALW'] + categories['OE'] + categories['CALW'] + categories['MAA'] + categories['SEARN']
+result = categories['BASIC'] + categories['ALW'] + categories['OE'] + categories['NOTAX']
+            </field>
+        </record>
+
+
+        <!-- Deduction -->
+        <record id="default_sa_medical_aid_emp_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">4005</field>
+            <field name="name">Medical Aid - Employee</field>
+            <field name="sequence">101</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'EMPMED' in inputs and inputs['EMPMED'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['EMPMED'].amount
+result_name = inputs['EMPMED'].name
+            </field>
+        </record>
+
+        <record id="default_sa_loan_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">3801</field>
+            <field name="name">Loan</field>
+            <field name="sequence">105</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'LOAN' in inputs and inputs['LOAN'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['LOAN'].amount
+result_name = inputs['LOAN'].name
+            </field>
+        </record>
+
+        <record id="default_sa_garnishee_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">9603</field>
+            <field name="name">Garnishee</field>
+            <field name="sequence">106</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'GARN' in inputs and inputs['GARN'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['GARN'].amount
+result_name = inputs['GARN'].name
+            </field>
+        </record>
+
+        <record id="default_sa_ita88_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">ITA88</field>
+            <field name="name">ITA88</field>
+            <field name="sequence">107</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'ITA' in inputs and inputs['ITA'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['ITA'].amount
+result_name = inputs['ITA'].name
+            </field>
+        </record>
+
+        <record id="default_sa_unpaid_leave_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">3601(13)</field>
+            <field name="name">Unpaid Leave</field>
+            <field name="sequence">108</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+#result = 'UNPL' in inputs and inputs['UNPL'].amount > 0
+if worked_days.get('LEAVE90',False):
+   result=True
+else:
+   result= False
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+#result = -inputs['UNPL'].amount
+#result=-contract.wage/21.66 * input['UNPL'].amount
+days = worked_days['LEAVE90']['number_of_days']
+daily_rate = (contract.monthly_cost_to_company/21.67)
+result = -days * daily_rate
+            </field>
+        </record>
+
+        <record id="default_sa_directive_tax_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">4102(1)</field>
+            <field name="name">Directive Tax</field>
+            <field name="sequence">112</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'DIRECTIVE' in inputs and inputs['DIRECTIVE'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['DIRECTIVE'].amount
+result_name = inputs['DIRECTIVE'].name
+            </field>
+        </record>
+
+        <record id="default_sa_additional_tax_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">4102(2)</field>
+            <field name="name">Additional Tax</field>
+            <field name="sequence">113</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'ADDTAX' in inputs and inputs['ADDTAX'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['ADDTAX'].amount
+result_name = inputs['ADDTAX'].name
+            </field>
+        </record>
+
+        <record id="default_sa_lumsum_tax_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">4115</field>
+            <field name="name">Lumpsum Tax</field>
+            <field name="sequence">114</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'LUMTAX' in inputs and inputs['LUMTAX'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['LUMTAX'].amount
+result_name = inputs['LUMTAX'].name
+            </field>
+        </record>
+
+        <record id="default_sa_admin_fee_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">ADDFEE</field>
+            <field name="name">Admin Fee</field>
+            <field name="sequence">115</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'ADDFEE' in inputs and inputs['ADDFEE'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['ADDFEE'].amount
+result_name = inputs['ADDFEE'].name
+            </field>
+        </record>
+
+        <record id="default_sa_parental_funeral_cover_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">PFUNERAL</field>
+            <field name="name">Parental Funeral Cover</field>
+            <field name="sequence">117</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PFUNERAL' in inputs and inputs['PFUNERAL'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['PFUNERAL'].amount
+result_name = inputs['PFUNERAL'].name
+            </field>
+        </record>
+
+        <record id="default_sa_gap_cover_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">GAPCOVER</field>
+            <field name="name">Gap Cover</field>
+            <field name="sequence">118</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'GAPCOVER' in inputs and inputs['GAPCOVER'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['GAPCOVER'].amount
+result_name = inputs['GAPCOVER'].name
+            </field>
+        </record>
+
+        <record id="default_sa_petrol_card_excess_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">3701(2)</field>
+            <field name="name">Petrol Card excess</field>
+            <field name="sequence">119</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PCARDACCESS' in inputs and inputs['PCARDACCESS'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['PCARDACCESS'].amount
+result_name = inputs['PCARDACCESS'].name
+            </field>
+        </record>
+
+        <record id="default_sa_ITA88_L_SARS_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">ITA88_L_SARS</field>
+            <field name="name">ITA88_L_SARS</field>
+            <field name="sequence">120</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'ITA88' in inputs and inputs['ITA88'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['ITA88'].amount
+result_name = inputs['ITA88'].name
+            </field>
+        </record>
+
+        <record id="default_sa_AA88_SARS_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">AA88_SARS</field>
+            <field name="name">AA88_SARS</field>
+            <field name="sequence">121</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'AA88_SARS' in inputs and inputs['AA88_SARS'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['AA88_SARS'].amount
+result_name = inputs['AA88_SARS'].name
+            </field>
+        </record>
+
+        <record id="default_sa_deduction_in_arrears_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">DED_ARR</field>
+            <field name="name">Deduction in Arrears</field>
+            <field name="sequence">123</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'DED_ARR' in inputs and inputs['DED_ARR'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['DED_ARR'].amount
+result_name = inputs['DED_ARR'].name
+            </field>
+        </record>
+
+        <record id="default_sa_arrears_recovered_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">DED_REC</field>
+            <field name="name">Arrears Recovered</field>
+            <field name="sequence">124</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'DED_REC' in inputs and inputs['DED_REC'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['DED_REC'].amount
+result_name = inputs['DED_REC'].name
+            </field>
+        </record>
+
+        <record id="default_sa_advance_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">ADVANCE</field>
+            <field name="name">Advance</field>
+            <field name="sequence">125</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'ADVANCE' in inputs and inputs['ADVANCE'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['ADVANCE'].amount
+result_name = inputs['ADVANCE'].name
+            </field>
+        </record>
+
+        <record id="default_sa_sundry_deduction_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">SUNDRY_DED</field>
+            <field name="name">Sundry Deduction</field>
+            <field name="sequence">126</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'SUNDRY_DED' in inputs and inputs['SUNDRY_DED'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['SUNDRY_DED'].amount
+result_name = inputs['SUNDRY_DED'].name
+            </field>
+        </record>
+
+        <record id="default_sa_payroll_giving_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">SUNDRY_DED1</field>
+            <field name="name">Payroll Giving</field>
+            <field name="sequence">127</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PAYROLL_GIVING' in inputs and inputs['PAYROLL_GIVING'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['PAYROLL_GIVING'].amount
+result_name = inputs['PAYROLL_GIVING'].name
+            </field>
+        </record>
+
+        <record id="default_sa_petrol_ned_fleet_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">SUNDRY_DED2</field>
+            <field name="name">Petrol Ned Fleet DED</field>
+            <field name="sequence">128</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'PAYROLL_NED_FLEET' in inputs and inputs['PAYROLL_NED_FLEET'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['PAYROLL_NED_FLEET'].amount
+result_name = inputs['PAYROLL_NED_FLEET'].name
+            </field>
+        </record>
+
+        <record id="default_sa_funeral_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">FUNERAL</field>
+            <field name="name">Funeral Cover</field>
+            <field name="sequence">129</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'FUNERAL' in inputs and inputs['FUNERAL'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['FUNERAL'].amount
+result_name = inputs['FUNERAL'].name
+            </field>
+        </record>
+
+        <record id="default_sa_uif_fund_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">3801(8)</field>
+            <field name="name">Unemployment Insurance Fund</field>
+            <field name="sequence">130</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>True</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+medical_aid = contract.medical_aid_contribution
+total_company_contribution = contract.employer_provident_fund + contract.life_insurance + contract.disability_cover + contract.vitality + contract.my_health
+if 'GROUP_LIFE_COVER' in inputs:
+   total_company_contribution += inputs['GROUP_LIFE_COVER'].amount 
+total= result_rules['3601(12)']['total'] + total_company_contribution + medical_aid
+uif = total * 0.01
+
+if result_rules['BASIC']['total'] == 0:
+     result =0
+else:
+    if uif > 177.12:
+       result = -177.12
+    else:
+       result = -uif
+            </field>
+        </record>
+
+        <record id="default_sa_medical_aid_cc_ded" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_medical_aid_cc"/>
+            <field name="code">4474</field>
+            <field name="name">Medical Aid - Company Contribution</field>
+            <field name="sequence">170</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>True</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = contract.medical_aid_contribution
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.medical_aid_contribution
+            </field>
+        </record>
+
+        <record id="default_sa_provident_fund_employer_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">4003</field>
+            <field name="name">Provident Fund - Employer</field>
+            <field name="sequence">173</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>True</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = contract.employer_provident_fund and contract.employer_provident_fund > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.employer_provident_fund#contract.wage * contract.employee_provident_fund
+            </field>
+        </record>
+
+        <record id="default_sa_group_life_cover_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">4477</field>
+            <field name="name">Group Life Cover</field>
+            <field name="sequence">174</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'GROUP_LIFE_COVER' in inputs and inputs['GROUP_LIFE_COVER'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = inputs['GROUP_LIFE_COVER'].amount
+result_name = inputs['GROUP_LIFE_COVER'].name
+            </field>
+        </record>
+
+        <record id="default_sa_life_insurance_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">3801(3)</field>
+            <field name="name">Life Insurance</field>
+            <field name="sequence">175</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = contract.life_insurance and contract.life_insurance > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.life_insurance
+            </field>
+        </record>
+
+        <record id="default_sa_disability_cover_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">3808</field>
+            <field name="name">Disability Cover</field>
+            <field name="sequence">176</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result =contract.disability_cover and contract.disability_cover > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.disability_cover
+            </field>
+        </record>
+
+        <record id="default_sa_vitality_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">3801(2)</field>
+            <field name="name">Vitality</field>
+            <field name="sequence">179</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result=contract.vitality and contract.vitality > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = contract.vitality
+            </field>
+        </record>
+
+        <record id="default_sa_my_health_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">4474(1)</field>
+            <field name="name">My Health</field>
+            <field name="sequence">180</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+#result= 'MY_HEALTH' in inputs
+
+if contract.my_health > 0:
+   result = True
+else:
+   result = False
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+#result = inputs['MY_HEALTH'].amount
+
+my_health = 0
+if contract.my_health > 0:
+   result = contract.my_health
+else:
+   result = my_health
+#result = contract.my_health and contract.my_health > 0
+            </field>
+        </record>
+
+        <record id="default_sa_sdl_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">4142(1)</field>
+            <field name="name">SDL</field>
+            <field name="sequence">181</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+#result = payslip.sdl
+#uif =contract.wage * 0.01
+
+total_company_contribution = categories['COMP']
+medical_aid = categories['MACC']
+# exclude SDL , UIF
+exclude = result_rules['4142(1)']['total'] + result_rules['4142']['total'] + result_rules['4003']['total'] + result_rules['3702']['total'] + result_rules['3704']['total'] + result_rules['3715']['total'] + result_rules['4701']['total']
+petrol_card = result_rules['3701(1)']['total'] + result_rules['4701(1)']['total']
+total= result_rules['3601(12)']['total'] + total_company_contribution + medical_aid - exclude - petrol_card + (petrol_card*0.80)
+sdl_rate = contract.sdl_rate or 1
+if result_rules['BASIC']['total'] == 0:
+     result =0
+else:
+    result= total * (sdl_rate/100)
+            </field>
+        </record>
+
+        <record id="default_sa_taxable_income_comp" model="hr.salary.rule">
+            <field name="category_id" ref="sa_payroll.sa_before_tax"/>
+            <field name="code">3601(3)</field>
+            <field name="name">Taxable Income</field>
+            <field name="sequence">190</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>True</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+#km_travelled = 0
+#if 'KMTRAVEL' in inputs:
+#    km_travelled = inputs['KMTRAVEL'].amount * payslip.rule_parameter('EXPERATE')
+
+#result = categories['BASIC'] + categories['OE'] + categories['TAX'] + categories['ALW'] + categories['MACC'] + categories['MAA'] - categories['CCFUND'] - km_travelled
+#exclude_from_taxable = result_rules['3704']['total']+ result_rules['3715']['total']+ result_rules['3701(3)']['total']+ result_rules['4701']['total']
+
+
+# plus contribution all contribution categories amount + medical aid - provident fund - uif - 
+# vitality result_rules['3801(2)']['total'] 
+
+# group life cover => 4477
+# provident fund => 4003 (not taxable)
+# life insurance => 3801(3)
+# disability cover => 3808 (exclude)
+# medical aid => 4474
+# company_contribution = result_rules['4477']['total'] + result_rules['3801(3)']['total'] + result_rules['3801(3)']['total'] + result_rules['4474']['total'] 
+
+#  Life Insurance + Medical Aid + Vitality + My health (4474(1)) + Provident fund
+company_contribution = result_rules['4474(1)']['total'] + result_rules['3801(2)']['total'] + result_rules['3801(3)']['total'] + result_rules['4474']['total'] + result_rules['3808']['total']  #+ result_rules['4003']['total']
+
+# petrol card access=> result_rules['3701(2)']['total'] 
+exclude_from_taxable = result_rules['3704']['total'] + result_rules['3715']['total']
+
+petrol_card = result_rules['3701(1)']['total'] + result_rules['4701(1)']['total']
+
+unpaid_leave = result_rules['3601(13)']['total']
+
+result = categories['GROSS'] +company_contribution - petrol_card + (petrol_card*0.80) - exclude_from_taxable + unpaid_leave
+            </field>
+        </record>
+
+        <record id="default_sa_paye_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">4102</field>
+            <field name="name">PAYE</field>
+            <field name="sequence">191</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>True</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+#result = -contract.emp_monthly_tax(result_rules['3601(3)']['total'],payslip.paid_amount)
+
+#severance_tax = 0
+#if result_rules['SEVTAX']['total']:
+#     severance_tax = result_rules['SEVTAX']['total']
+#result = -((contract.emp_monthly_tax_current(result_rules['3601(3)']['total'],payslip.paid_amount) - result_rules['4116']['total'])+severance_tax)
+
+#result = result_rules['3601(3)']['total']
+severance_tax = 0
+if result_rules['3901']['total']:
+     severance_tax = result_rules['3901']['total']
+
+amt = result_rules['3601(3)']['total']
+medical_tax_rebate = contract.medical_amount
+
+#result = -((contract.sage_emp_monthly_tax(amt,payslip.paid_amount, payslip))+severance_tax)# - medical_tax_rebate)
+if result_rules['BASIC']['total'] == 0:
+     result =0
+else:
+    result = -((contract.sage_avg_emp_monthly_tax(amt,payslip.paid_amount, payslip))+severance_tax)# - medical_tax_rebate)
+            </field>
+        </record>
+
+        <record id="default_sa_uif_company_comp" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.COMP"/>
+            <field name="code">4142</field>
+            <field name="name">UIF - Company Contribution</field>
+            <field name="sequence">192</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>True</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+#uif =contract.wage * 0.01
+
+total_company_contribution = categories['COMP']
+medical_aid = categories['MACC']
+# exclude SDL , UIF
+exclude = result_rules['4142(1)']['total'] + result_rules['4142']['total']
+
+total= result_rules['3601(12)']['total'] + total_company_contribution + medical_aid - exclude
+uif = total * 0.01
+
+if result_rules['BASIC']['total'] == 0:
+     result =0
+else:
+    if uif > 177.12:
+       result = -177.12
+    else:
+       result = -uif
+
+#uif = result_rules['3601(12)']['total'] * 0.01
+#if uif > 177.12:
+#   result = -177.12
+# else:
+#   result = -uif
+            </field>
+        </record>
+
+        <record id="default_sa_deduction_ded" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">4606</field>
+            <field name="name">Deduction</field>
+            <field name="sequence">198</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>False</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>True</field>
+            <field name='condition_select'>python</field>
+            <field name='condition_python'>
+result = 'DEDUCTION' in inputs and inputs['DEDUCTION'].amount > 0
+            </field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = -inputs['DEDUCTION'].amount
+result_name = inputs['DEDUCTION'].name
+            </field>
+        </record>
+
+        <record id="default_sa_net_salary" model="hr.salary.rule">
+            <field name="category_id" ref="hr_payroll.NET"/>
+            <field name="code">NET</field>
+            <field name="name">Net Salary</field>
+            <field name="sequence">500</field>
+            <field name="struct_id" ref="sa_payroll.structure_0010"/>
+
+            <field name='appears_on_payslip'>True</field>
+            <field name='consider_for_eti_sdl'>False</field>
+            <field name='exclude_for_leave_pay'>False</field>
+            <field name='is_pay'>False</field>
+            <field name='is_uif'>False</field>
+            <field name='is_gross'>False</field>
+            <field name='is_bonus'>False</field>
+            <field name='is_gross_em_in_tx'>False</field>
+            <field name='is_earnings'>False</field>
+            <field name='is_deductions_pa'>False</field>
+            <field name='is_voluntary_deduction'>False</field>
+            <field name='is_net_salary'>True</field>
+            <field name='is_com_contributions'>False</field>
+            <field name='is_taxebal_income'>False</field>
+            <field name='is_diduction'>False</field>
+            <field name='condition_select'>none</field>
+            <field name='amount_select'>code</field>
+            <field name='amount_python_compute'>
+result = categories['BASIC']+ categories['ALW'] + categories['OE'] + categories['MAA'] + categories['CALW'] + categories['SEARN'] +categories['DED'] 
+            </field>
+        </record>
+
+        <!-- Other Input Type -->
+        <record id="travel_expense_other_input" model="hr.payslip.input.type">
+            <field name="name">Reimbursive Travel</field>
+            <field name="code">TRAVEL_EXPENSES</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="local_expense_other_input" model="hr.payslip.input.type">
+            <field name="name">Local Expense</field>
+            <field name="code">LOCAL_EXPENSES</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="foreign_expense_other_input" model="hr.payslip.input.type">
+            <field name="name">Foreign Expense</field>
+            <field name="code">FOREIGN_EXPENSES</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="sa_reimbursement_other_input" model="hr.payslip.input.type">
+            <field name="name">Reimbursement</field>
+            <field name="code">REIMBURSEMENT</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_DIRECTIVE_other_input" model="hr.payslip.input.type">
+            <field name="name">DIRECTIVE Tax</field>
+            <field name="code">DIRECTIVE</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_additional_tax_other_input" model="hr.payslip.input.type">
+            <field name="name">Additional Tax</field>
+            <field name="code">ADDTAX</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+        <record id="sa_lumsum_tax_other_input" model="hr.payslip.input.type">
+            <field name="name">Lumpsum Tax</field>
+            <field name="code">LUMTAX</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_lADDFEE_other_input" model="hr.payslip.input.type">
+            <field name="name">Admin Fee</field>
+            <field name="code">ADDFEE</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_FUNERAL_other_input" model="hr.payslip.input.type">
+            <field name="name">FUNERAL Fee</field>
+            <field name="code">FUNERAL</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_PFUNERAL_other_input" model="hr.payslip.input.type">
+            <field name="name">Parental Funeral Cover</field>
+            <field name="code">PFUNERAL</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_GAPCOVER_other_input" model="hr.payslip.input.type">
+            <field name="name">GAP Cover</field>
+            <field name="code">GAPCOVER</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_PCARDACCESS_other_input" model="hr.payslip.input.type">
+            <field name="name">Petrol Card excess</field>
+            <field name="code">PCARDACCESS</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_PCARD_other_input" model="hr.payslip.input.type">
+            <field name="name">Petrol Card</field>
+            <field name="code">PCARD</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_ITA88_other_input" model="hr.payslip.input.type">
+            <field name="name">ITA88_L_SARS</field>
+            <field name="code">ITA88</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_AA88_SARS_other_input" model="hr.payslip.input.type">
+            <field name="name">AA88_SARS</field>
+            <field name="code">AA88_SARS</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_DED_ARR_other_input" model="hr.payslip.input.type">
+            <field name="name">Deduction in Arrears</field>
+            <field name="code">DED_ARR</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_DED_REC_other_input" model="hr.payslip.input.type">
+            <field name="name">Arrears Recovered</field>
+            <field name="code">DED_REC</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_ADVANCE_other_input" model="hr.payslip.input.type">
+            <field name="name">Advance</field>
+            <field name="code">ADVANCE</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_SUNDRY_DED_other_input" model="hr.payslip.input.type">
+            <field name="name">Sundry Deduction</field>
+            <field name="code">SUNDRY_DED</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_INCENTIVE_other_input" model="hr.payslip.input.type">
+            <field name="name">Incentive Pay</field>
+            <field name="code">INCENTIVE</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_BONUS_other_input" model="hr.payslip.input.type">
+            <field name="name">Annual Bonus</field>
+            <field name="code">BONUS</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_EXE_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Executive Allowance</field>
+            <field name="code">EXE_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_GRAVEYARD_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Graveyard Shift Allowance</field>
+            <field name="code">GRAVEYARD_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_CELL_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Cell Phone Allowance1</field>
+            <field name="code">CELL_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_SALARY_BACK_PAY_other_input" model="hr.payslip.input.type">
+            <field name="name">Salary Back Pay</field>
+            <field name="code">SALARY_BACK_PAY</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_LOCAL_EXPENSES_other_input" model="hr.payslip.input.type">
+            <field name="name">Local Expense</field>
+            <field name="code">LOCAL_EXPENSES</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_FOREIGN_EXPENSES_other_input" model="hr.payslip.input.type">
+            <field name="name">Foreign Expense</field>
+            <field name="code">FOREIGN_EXPENSES</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_LUM_SUM_OTHER_other_input" model="hr.payslip.input.type">
+            <field name="name">Lump-sum Other</field>
+            <field name="code">LUM_SUM_OTHER</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_LUM_SUM_PAY_other_input" model="hr.payslip.input.type">
+            <field name="name">Lump-sum Payment</field>
+            <field name="code">LUM_SUM_PAY</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_DATA_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Data Allowance</field>
+            <field name="code">DATA_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_DATA_CLAIM_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Data Claim</field>
+            <field name="code">DATA_CLAIM_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_GIFT_VOU_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Gift Vouchers Grossed Up</field>
+            <field name="code">GIFT_VOU_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_IND_CONTRACT_other_input" model="hr.payslip.input.type">
+            <field name="name">Independent Contractors</field>
+            <field name="code">IND_CONTRACT</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_INSURANCE_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Insurance Allowance</field>
+            <field name="code">INSURANCE_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_CRED_COMM_other_input" model="hr.payslip.input.type">
+            <field name="name">Creditor Commission</field>
+            <field name="code">CRED_COMM</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_OVER_ACH_BONUS_other_input" model="hr.payslip.input.type">
+            <field name="name">Over Achievement Bonus</field>
+            <field name="code">OVER_ACH_BONUS</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_PRO_EM_INCENTIVE_other_input" model="hr.payslip.input.type">
+            <field name="name">Pro-Am Incentive</field>
+            <field name="code">PRO_EM_INCENTIVE</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_PSP_PAY_other_input" model="hr.payslip.input.type">
+            <field name="name">PSP Payment Hourly</field>
+            <field name="code">PSP_PAY</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_QTRYLY_BONUS_other_input" model="hr.payslip.input.type">
+            <field name="name">Quarterly Bonus</field>
+            <field name="code">QTRYLY_BONUS</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_REFE_BONUS_other_input" model="hr.payslip.input.type">
+            <field name="name">Referral Bonus</field>
+            <field name="code">REFE_BONUS</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_SUNDRY_EARN_other_input" model="hr.payslip.input.type">
+            <field name="name">Sundry Earning</field>
+            <field name="code">SUNDRY_EARN</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>True</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_STIPEND_other_input" model="hr.payslip.input.type">
+            <field name="name">Stipend</field>
+            <field name="code">STIPEND</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_TRANSPORT_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Transport Allowance</field>
+            <field name="code">TRANSPORT_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_TUTOR_FEES_other_input" model="hr.payslip.input.type">
+            <field name="name">Tutor Fees</field>
+            <field name="code">TUTOR_FEES</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_GROUP_LIFE_COVER_other_input" model="hr.payslip.input.type">
+            <field name="name">Group Life Cover</field>
+            <field name="code">GROUP_LIFE_COVER</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_LIFE_INSURANCE_other_input" model="hr.payslip.input.type">
+            <field name="name">Life Insurance</field>
+            <field name="code">LIFE_INSURANCE</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_DISABILITY_other_input" model="hr.payslip.input.type">
+            <field name="name">Disability Cover</field>
+            <field name="code">DISABILITY</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_MY_HEALTH_other_input" model="hr.payslip.input.type">
+            <field name="name">MyHealth</field>
+            <field name="code">MY_HEALTH</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_SCARCE_SKILL_other_input" model="hr.payslip.input.type">
+            <field name="name">Scarce Skill</field>
+            <field name="code">SCARCE_SKILL</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_SHIFT_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Shift Allowance</field>
+            <field name="code">SHIFT_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_SITE_ALLW_other_input" model="hr.payslip.input.type">
+            <field name="name">Site</field>
+            <field name="code">SITE_ALLW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_my_health1_other_input" model="hr.payslip.input.type">
+            <field name="name">My health</field>
+            <field name="code">my_health</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_disability_cover_other_input" model="hr.payslip.input.type">
+            <field name="name">Disability Cover</field>
+            <field name="code">disability_cover</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_TRAVEL_BACK_PAY_other_input" model="hr.payslip.input.type">
+            <field name="name">Travel Allowance Back Pay</field>
+            <field name="code">TRAVEL_BACK_PAY</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_PAYROLL_GIVING_other_input" model="hr.payslip.input.type">
+            <field name="name">Payroll Giving</field>
+            <field name="code">PAYROLL_GIVING</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_PAYROLL_NED_FLEET_other_input" model="hr.payslip.input.type">
+            <field name="name">Petrol Ned Fleet</field>
+            <field name="code">PAYROLL_NED_FLEET</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_PETROL_NED_FLEET_ALW_other_input" model="hr.payslip.input.type">
+            <field name="name">Petrol Ned Fleet Allowance</field>
+            <field name="code">PETROL_NED_FLEET_ALW</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_OVERTIME_WEEK_other_input" model="hr.payslip.input.type">
+            <field name="name">Overtime 1.5</field>
+            <field name="code">OVERTIME_WEEK</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_OVERTIME_PUB_other_input" model="hr.payslip.input.type">
+            <field name="name">Overtime 2.0</field>
+            <field name="code">OVERTIME_PUB</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_UIF_DED_other_input" model="hr.payslip.input.type">
+            <field name="name">Unemployment Insurance Fund</field>
+            <field name="code">UIF_DED</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_OVERTIME_AMT_other_input" model="hr.payslip.input.type">
+            <field name="name">Overtime Amount</field>
+            <field name="code">OVERTIME_AMT</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_COMMS_other_input" model="hr.payslip.input.type">
+            <field name="name">Commission</field>
+            <field name="code">COMMS</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+
+        <record id="sa_OVERTIME_AMT_1_5_other_input" model="hr.payslip.input.type">
+            <field name="name">Overtime 1.5 Amount</field>
+            <field name="code">OVERTIME_AMT_1_5</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_OVERTIME_AMT_2_0_other_input" model="hr.payslip.input.type">
+            <field name="name">Overtime 2.0 Amount</field>
+            <field name="code">OVERTIME_AMT_2_0</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>False</field>
+        </record>
+
+        <record id="sa_standby_amount_other_input" model="hr.payslip.input.type">
+            <field name="name">Standby Amount</field>
+            <field name="code">standby_amount</field>
+            <field name="country_id" ref="base.za"/>
+            <field name='struct_ids' eval="[(4, ref('sa_payroll.structure_0010'))]"/>
+            <field name='is_print'>False</field>
+            <field name='is_default_advantage'>True</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>        
+        <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="private_phone" position="after">
+                    <field name="emp_code"/>
+                    <field name="kanow_as"/>
+                    <field name="tax_no"/>
+                    <field name="emp_surname"/>
+                    <field name="emp_date_completion"/>
+                    <field name="id_number"/>
+                </field>
+                <field name="identification_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="country_id" position="after">
+                    <field name="ident_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_form_inherit" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <group name="main_details" position="after">
+                    <group name="extra_details" string="Extra Info">
+                        <group>
+                            <field name="is_pay"/>
+                            <field name="is_uif"/>
+                            <field name="is_gross"/>
+                            <field name="is_bonus"/>
+                            <field name="is_gross_em_in_tx"/>
+                            <field name="is_earnings"/>
+                        </group>
+                        <group>
+                            <field name="is_deductions_pa"/>
+                            <field name="is_voluntary_deduction"/>
+                            <field name="is_net_salary"/>
+                            <field name="is_com_contributions"/>
+                            <field name="is_taxebal_income"/>
+                            <field name="is_diduction"/>
+                        </group>
+                    </group>
+                </group>
+            </field>
+        </record>
+
+        <record id="view_partner_bank_form_branch" model="ir.ui.view">
+            <field name="name">company.res.partner.bank.form</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_id']" position="after">
+                    <field name="branch_name" invisible="1"/>
+                    <field name="name_of_account"/>
+                    <field name="branch_code"/>
+                    <field name="branch_location"/>
+                    <field name="account_ownership"/>
+                    <field name="bank_account_type"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_form_cr_no" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='struct_id']" position="after">
+                    <field name="certificate_number" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='worked_days_line_ids']//field[@name='number_of_days']" position="after">
+                    <field name="no_of_allocation" readonly="1" force_save="1"/>
+                </xpath>
+                <xpath expr="//page[@name='account_info']//field[@name='company_id']" position='after'>
+                    <field name="certificate_number" string="Tax Certificate Number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_work_entry_type_view_form_inhert" model="ir.ui.view">
+            <field name="name">hr.work.entry.type.form.inherit</field>
+            <field name="model">hr.work.entry.type</field>
+            <field name="inherit_id" ref="hr_work_entry.hr_work_entry_type_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sequence']" position="after">
+                    <field name="is_show_payslip"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payslip_input_type_view_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.input.type.form</field>
+            <field name="model">hr.payslip.input.type</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_input_type_view_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="is_print"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_department_form_inherit" model="ir.ui.view">
+            <field name="name">hr.department.form</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="analytic_account_id"/>
+                </field>
+                <field name="manager_id" position="after">
+                    <field name="is_director"/>
+                    <field name="is_hr"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_contract_view_form_tax_year" model="ir.ui.view">
+            <field name="name">hr.contract.form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Year To Date Totals" name="Year To Date Totals">
+                        <group>
+                            <group>
+                                <field name='tax_paid_amount'/>
+                            </group>
+                            <group>
+                                <field name='taxable_earnings_amount'/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name='taxable_company_contributions_amount'/>
+                            </group>
+                            <group>
+                                <field name='fringe_benefits_amount'/>
+                            </group>
+                        </group>
+                        <group>
+                            
+                            <group>
+                                <field name='tax_deductible_ductions_amount'/>
+                            </group>
+                            <!-- <group>
+                                <field name='private_contributions_amount'/>
+                            </group> -->
+                        </group>
+                    </page>
+                </xpath>
+                <field name='hr_responsible_id' position='after'>
+                    <field name='original_start_date'/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

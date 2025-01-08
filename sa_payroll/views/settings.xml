@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <!-- <field name="priority" eval="45"/> -->
+        <field name="inherit_id" ref="hr_payroll.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='hr_payroll_accountant']" position="after">
+                <block title="SA Payroll" id="sa_hr_payroll">
+                    <setting string="Late Pay/Early Pay" help="Exclude payslip from ACB file.">
+                        <field name='late_pay'/>
+                    </setting>
+
+                    <setting string="SDL Rate" help="">
+                        <field name='sdl_rate'/>
+                    </setting>
+                </block>
+                <block title="Tax" id='payment_ref'>
+                    
+                    <setting string="PAYE reference number">
+                        <field name="paye_ref_number"/>
+                    </setting>
+                    <setting string="SDL reference number">
+                        <field name="sdl_ref_number"/>
+                    </setting>
+
+                    <setting string="UIF reference number">
+                        <field name="uif_ref_number"/>
+                    </setting>
+                </block>
+                <block id="payment_ref2">
+                    <setting string="Up To Amount">
+                        <field name="up_to_amount"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
