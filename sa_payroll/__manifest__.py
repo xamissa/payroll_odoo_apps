@@ -52,6 +52,6 @@
     "price"       : 1000,
     "currency"    : "EUR",
     "images"      : ["static/description/banner.png",],
-    'license'     : 'OPL-1',
+    'license'     : 'OEEL-1',
 }
 
