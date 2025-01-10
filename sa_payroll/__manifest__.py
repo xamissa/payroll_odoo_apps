@@ -16,7 +16,6 @@
                         'hr_holidays',
                         'sale_management',
                         'hr_payroll_expense',
-                        'report_xlsx'
                     ],
     'data'        : [
                         'report/report_action.xml',
@@ -36,7 +35,7 @@
                         'views/emp_summary_report.xml',
                         'views/hr_payslip_report.xml',
                         'views/id_indicater_view.xml',
-                        'views/report_action.xml',
+                        # 'views/report_action.xml',
                         'views/sa_emp_report.xml',
 
 
@@ -52,6 +51,6 @@
     "price"       : 1000,
     "currency"    : "EUR",
     "images"      : ["static/description/banner.png",],
-    'license'     : 'OPL-1',
+    'license'     : 'OEEL-1',
 }
 

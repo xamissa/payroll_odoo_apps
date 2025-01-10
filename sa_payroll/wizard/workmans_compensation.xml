@@ -14,7 +14,7 @@
                     </group>
                 </group>
                 <footer>
-                    <button name="generate_report" type="object" string="Print Report" class="oe_highlight"/>
+                    <button name="action_generate_xlsx" type="object" string="Print Report" class="oe_highlight"/>
                     or
                     <button string="Cancel" class="oe_highlight" special="cancel"/>
                 </footer>
